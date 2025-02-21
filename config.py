@@ -1,3 +1,5 @@
+MOVE_DIRECTIONS = [(-1, 0), (1, 0), (0, -1), (0, 1)]
+
 FREE_CELL_ICON = ' '
 ROCK_ICON = 'R'
 TREE_ICON = 'T'

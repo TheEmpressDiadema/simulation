@@ -6,7 +6,7 @@ class Coordinate:
 
     def __hash__(self):
         return hash((self._x, self._y))
-    
+
     def __eq__(self, other):
         if isinstance(other, Coordinate):
             return self._x == other.x and self._y == other.y
@@ -27,3 +27,6 @@ class Coordinate:
     @y.setter
     def y(self, value: int):
         self._y = value
+
+    def copy(self):
+        return Coordinate(self._x, self._y)

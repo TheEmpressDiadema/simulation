@@ -30,7 +30,7 @@ class Herbivore(Creature, IConsumable):
     target_type: type[Resource] = Grass
 
     def get_status(self):
-        return self._health_points > 0
+        return self._health_points == 0
     
     def eat(self, target: Resource):
         if isinstance(target, self.target_type):
