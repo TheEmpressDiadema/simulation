@@ -16,6 +16,9 @@ class World:
     def height(self):
         return self._height
     
+    def is_full(self):
+        return len(self.get_free_cells()) == 0
+
     def in_border(self, cell: Cell):
         in_border_flag = (0 <= cell.col < self._width)
         in_border_flag &= (0 <= cell.row < self._height)

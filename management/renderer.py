@@ -1,6 +1,7 @@
 import os
 import platform
 
+from management.menu import Menu
 from environment.cell import Cell
 from environment.world import World
 from entities.abstract import Entity
@@ -8,6 +9,11 @@ from constants.icons import FREE_CELL_ICON
 
 
 class Renderer:
+
+    def print_menu(self, menu: Menu):
+
+        for item in menu.items:
+            print(item)
 
     def render(self, world: World):
         self._clear_console()

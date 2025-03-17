@@ -1,18 +1,19 @@
-import time
-
 from actions.action import Action
+from constants.world_size import WorldSize
 from environment.world import World
 from actions.spawn import SpawnEntity
 from actions.move import MoveCreatures
-from management.renderer import Renderer
 
 class Simulation:
 
-    def __init__(self):
-        self._world = World()
+    def __init__(self, size: WorldSize):
+        self._world = World(size.width, size.height)
         self._turn_actions: Action = [SpawnEntity(), MoveCreatures()]
-        self._renderer = Renderer()
     
+    @property
+    def world(self):
+        return self._world
+
     def start_simulation(self):
         self.next_turn()
 
@@ -22,5 +23,3 @@ class Simulation:
     def next_turn(self):
         for action in self._turn_actions:
             action.execute(self._world)
-            self._renderer.render(self._world)
-            time.sleep(0.8)

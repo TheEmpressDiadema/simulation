@@ -22,6 +22,7 @@ class BFS(PathBuilder):
         queue: set[Cell] = set()
         used: dict[Cell, bool] = dict()
         path: dict[Cell, Cell] = dict()
+        dist: dict[Cell, int] = dict()
 
         start = creature.position
         img_cell = Cell(-1, -1)
@@ -30,11 +31,12 @@ class BFS(PathBuilder):
         queue.add(start)
         used[start] = True
         path[start] = img_cell
+        dist[start] = 0
+        min_dist = 1e8
 
         while len(queue) > 0:
 
             cell_from = queue.pop()
-            target_found = False
 
             for direction in DIRECTIONS:
 
@@ -44,20 +46,20 @@ class BFS(PathBuilder):
 
                     used[cell_to] = True
                     path[cell_to] = cell_from
+                    dist[cell_to] = dist[cell_from] + 1
                     content = world.get_cell_content(cell_to)
 
                     if isinstance(content, creature.target_type):
                         
-                        target_found = True
-                        target_cell = cell_to
-                        break
+
+                        if min_dist > dist[cell_to]:
+                            target_cell = cell_to
+                            min_dist = dist[cell_to]
+                        
 
                     if content is None:
 
                         queue.add(cell_to)
-                
-            if target_found:
-                break
         
         result_path = []
 
