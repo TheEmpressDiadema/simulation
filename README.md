@@ -35,7 +35,7 @@ for direction in directions:
 
         used.add(direction)
 ```
-
+ 
 Исключение недоступных направлений из множества всех направлений происходит так:
 ```sh
 directions = list(set(directions) - used)
