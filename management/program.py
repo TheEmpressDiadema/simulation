@@ -50,9 +50,9 @@ class Program:
     def _run_simulation(self, run_event: Event, stop_event: Event):
         self._simulation.start_simulation()
 
-        while not (stop_event.is_set() or self._simulation.world.is_full()):
+        while not (stop_event.is_set() and self._simulation.world.is_full()):
             if run_event.is_set():
                 self._renderer.render(self._simulation.world)
 
                 self._simulation.next_turn()
-                sleep(1)
+                sleep(0)
