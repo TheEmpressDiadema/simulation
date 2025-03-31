@@ -55,4 +55,4 @@ class Program:
                 self._renderer.render(self._simulation.world)
 
                 self._simulation.next_turn()
-                sleep(0)
+                sleep(1)
