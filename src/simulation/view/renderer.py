@@ -7,8 +7,8 @@ class Renderer:
 
     def print_field(self, game_map: Map):
         
-        for row in range(game_map.height):
-            for col in range(game_map.width):
+        for row in range(1, game_map.height+1):
+            for col in range(1, game_map.width+1):
                 self._print_cell(game_map, Coordinate(row, col))
             print()
     
