@@ -1,5 +1,5 @@
-MAP_HEIGHT = 20
-MAP_WIDTH = 20
+MAP_HEIGHT = 3
+MAP_WIDTH = 3
 
 TREE_ICON = "🌳"
 GRASS_ICON = "🌿"
