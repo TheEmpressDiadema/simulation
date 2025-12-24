@@ -40,3 +40,6 @@ class Map:
     
     def get_entity_cells(self) -> list[Coordinate]:
         return [cell for cell in self._map if isinstance(self._map[cell], Entity)]
+    
+    def get_existing_types(self) -> list[type[Entity]]:
+        return [type(entity) for entity in self._map.values() if entity is not None]
