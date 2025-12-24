@@ -1,5 +1,4 @@
-from simulation.algorithms.path_builder import BFS, RandomPathBuilder
-from simulation.actions.action import MoveEntities
+from simulation.actions.action import MoveCreature
 from simulation.entities.creatures import Herbivore, Predator
 from simulation.map.coordinate import Coordinate
 from simulation.map.map import Map
@@ -19,7 +18,7 @@ def main() -> None:
     print()
     renderer.print_field(field)
     print()
-    act = MoveEntities()
+    act = MoveCreature()
     act.run(field)
     renderer.print_field(field)
     print()
