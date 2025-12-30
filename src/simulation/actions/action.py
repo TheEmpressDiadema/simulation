@@ -1,8 +1,11 @@
 from abc import ABC, abstractmethod
+from random import choice as choose_cell
 
 from simulation.entities.entity import Entity
+from simulation.map.coordinate import Coordinate
 from simulation.map.map import Map
-from simulation.entities.creatures import Creature
+from simulation.entities.creature import Creature
+from simulation.creators.entity_creator import EntityCreator
 from simulation.algorithms.path_builder import BFS, RandomPathBuilder
 
 
@@ -15,10 +18,13 @@ class Action(ABC):
 class SpawnEntity(Action):
 
     def __init__(self):
-        pass
+        self._entity_creator = EntityCreator()
 
     def run(self, field: Map):
-        pass
+        free_cell: Coordinate = choose_cell(field.get_free_cells())
+        field[free_cell] = self._entity_creator.create_entity("")
+
+
 
 class MoveCreature(Action):
 
@@ -30,15 +36,13 @@ class MoveCreature(Action):
         entities: list[Entity] = field.get_entity_cells()
         existing_types: list[type[Entity]] = field.get_existing_types()
         for cell in entities:
-            entity = field[cell]
-            if isinstance(entity, Creature):
-                self._move_creature(entity, existing_types, field)
+            if isinstance(field[cell], Creature):
+                self._move_creature(cell, existing_types, field)
 
-    def _move_creature(self, creature: Creature, existing_types: list[type[Entity]], field: Map):
+    def _move_creature(self, creature_cell: Coordinate, existing_types: list[type[Entity]], field: Map):
+        creature: Creature = field[creature_cell]
         if creature.target_type in existing_types:
-            path = self._path_builder.build_path(creature, field)
+            path = self._path_builder.build_path(creature_cell, field)
         else:
-            path = self._random_builder.build_path(creature, field)
-        field[creature.position] = None
+            path = self._random_builder.build_path(creature_cell, field)
         creature.make_move(path, field)
-        field[creature.position] = creature
