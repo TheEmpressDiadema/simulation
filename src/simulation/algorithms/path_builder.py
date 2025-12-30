@@ -4,28 +4,29 @@ from typing import Optional
 from abc import ABC, abstractmethod
 
 from simulation.map.map import Map
-from simulation.entities.creatures import Creature
+from simulation.entities.creature import Creature
 from simulation.map.coordinate import Coordinate
 
 class PathBuilder(ABC):
 
     @abstractmethod
-    def build_path(self, creature: Creature, field: Map):
+    def build_path(self, start: Coordinate, field: Map):
         pass
 
 class BFS(PathBuilder):
     
-    def build_path(self, creature: Creature, field: Map) -> list[Coordinate]:
+    def build_path(self, start: Coordinate, field: Map) -> list[Coordinate]:
         
         queue: set[Coordinate] = set()
         used: dict[Coordinate, bool] = dict()
         parents: dict[Coordinate, Optional[Coordinate]] = dict()
 
-        queue.add(creature.position)
-        used[creature.position] = True
+        creature: Creature = field[start]
+        queue.add(start)
+        used[start] = True
 
         target_cell: Coordinate = Coordinate(-1, -1)
-        target_found = False
+        target_found: bool = False
 
         while len(queue) > 0:
             cell_from = queue.pop()
@@ -48,16 +49,18 @@ class BFS(PathBuilder):
             path.append(target_cell)
             target_cell = parents[target_cell]
 
+        path.append(start)
         path.reverse()
 
         return path
     
 class RandomPathBuilder(PathBuilder):
 
-    def build_path(self, creature: Creature, field: Map) -> list[Coordinate]:
+    def build_path(self, start: Coordinate, field: Map) -> list[Coordinate]:
+        creature: Creature = field[start]
         path_length: int = creature.speed
-        cell_from: Coordinate = creature.position
-        path: list[Coordinate] = []
+        cell_from: Coordinate = start
+        path: list[Coordinate] = [start]
         
         while path_length:
 
