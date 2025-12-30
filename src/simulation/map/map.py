@@ -9,6 +9,7 @@ class Map:
         self._height: int = height
         self._width: int = width
         self._map: dict[Coordinate, Optional[Entity]] = dict()
+        self._init_map()
 
     def __setitem__(self, key: Coordinate, value: Optional[Entity]):
         self._map[key] = value
@@ -24,6 +25,11 @@ class Map:
     def width(self):
         return self._width
     
+    def _init_map(self):
+        for row in range(1, self.height+1):
+            for col in range(1, self.width+1):
+                self._map[Coordinate(row, col)] = None
+
     def get_adjacents(self, cell: Coordinate) -> list[Coordinate]:
         return [
             Coordinate(cell.row + 1, cell.col),
@@ -36,7 +42,7 @@ class Map:
         return 1 <= cell.row <= self._height and 1 <= cell.col <= self._width
 
     def get_free_cells(self) -> list[Coordinate]:
-        return [cell for cell in self._map if self._map[cell] is None]
+        return [cell for cell in self._map.keys() if self._map[cell] is None]
     
     def get_entity_cells(self) -> list[Coordinate]:
         return [cell for cell in self._map if isinstance(self._map[cell], Entity)]
@@ -44,8 +50,8 @@ class Map:
     def get_existing_types(self) -> list[type[Entity]]:
         return [type(entity) for entity in self._map.values() if entity is not None]
     
-    def get_entity_count(self, entity_type: type[Entity]) -> int:
-        return [entity for entity in self._map.values() if isinstance(entity, entity_type)].count()
+    def get_entity_count(self, entity_type: str) -> int:
+        return [entity for entity in self._map.values() if type(entity).__name__ == entity_type].count(entity_type)
 
     def delete_entity(self, cell: Coordinate):
         del self._map[cell]
