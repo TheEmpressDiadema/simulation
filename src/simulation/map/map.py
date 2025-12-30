@@ -43,3 +43,9 @@ class Map:
     
     def get_existing_types(self) -> list[type[Entity]]:
         return [type(entity) for entity in self._map.values() if entity is not None]
+    
+    def get_entity_count(self, entity_type: type[Entity]) -> int:
+        return [entity for entity in self._map.values() if isinstance(entity, entity_type)].count()
+
+    def delete_entity(self, cell: Coordinate):
+        del self._map[cell]
