@@ -7,16 +7,18 @@ from simulation.map.map import Map
 from simulation.entities.creature import Creature
 from simulation.map.coordinate import Coordinate
 
+
 class PathBuilder(ABC):
 
     @abstractmethod
     def build_path(self, start: Coordinate, field: Map):
         pass
 
+
 class BFS(PathBuilder):
-    
+
     def build_path(self, start: Coordinate, field: Map) -> list[Coordinate]:
-        
+
         queue: set[Coordinate] = set()
         used: dict[Coordinate, bool] = dict()
         parents: dict[Coordinate, Optional[Coordinate]] = dict()
@@ -42,7 +44,7 @@ class BFS(PathBuilder):
                         break
             if target_found:
                 break
-        
+
         path: list[Coordinate] = []
 
         while parents.get(target_cell) is not None:
@@ -53,7 +55,8 @@ class BFS(PathBuilder):
         path.reverse()
 
         return path
-    
+
+
 class RandomPathBuilder(PathBuilder):
 
     def build_path(self, start: Coordinate, field: Map) -> list[Coordinate]:
@@ -61,7 +64,7 @@ class RandomPathBuilder(PathBuilder):
         path_length: int = creature.speed
         cell_from: Coordinate = start
         path: list[Coordinate] = [start]
-        
+
         while path_length:
 
             empty_cells = []
@@ -76,5 +79,5 @@ class RandomPathBuilder(PathBuilder):
                 cell_from = random_cell
 
             path_length -= 1
-        
+
         return path

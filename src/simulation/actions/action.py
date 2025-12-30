@@ -16,6 +16,7 @@ class Action(ABC):
     def run(self):
         pass
 
+
 class SpawnEntity(Action):
 
     def __init__(self):
@@ -31,6 +32,7 @@ class SpawnEntity(Action):
                     entity = self._entity_creator.create_entity(classname)
                     field[free_cell] = entity
 
+
 class MoveCreature(Action):
 
     def __init__(self):
@@ -44,7 +46,9 @@ class MoveCreature(Action):
             if isinstance(field[cell], Creature):
                 self._move_creature(cell, existing_types, field)
 
-    def _move_creature(self, creature_cell: Coordinate, existing_types: list[type[Entity]], field: Map):
+    def _move_creature(
+        self, creature_cell: Coordinate, existing_types: list[type[Entity]], field: Map
+    ):
         creature: Creature = field[creature_cell]
         if creature.target_type in existing_types:
             path = self._path_builder.build_path(creature_cell, field)

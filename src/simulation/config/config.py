@@ -7,7 +7,7 @@ TREE_ICON = "🌳"
 
 ROCK_ICON = "⛰️"
 
-GRASS_ICON = "🌿" 
+GRASS_ICON = "🌿"
 
 HERBIVORE_ICON = "🐇"
 HERBIVORE_SPEED = 3
@@ -19,9 +19,9 @@ PREDATOR_HP = 10
 PREDATOR_DAMAGE = 5
 
 MAX_ENTITY_COUNT = {
-    "Tree" : (MAP_HEIGHT*MAP_WIDTH)//10,
-    "Rock" : (MAP_HEIGHT*MAP_WIDTH)//10,
-    "Grass" : (MAP_HEIGHT*MAP_WIDTH)*2//10,
-    "Predator" : (MAP_HEIGHT*MAP_WIDTH)*3//10,
-    "Herbivore" : (MAP_HEIGHT*MAP_WIDTH)*3//10
+    "Tree": (MAP_HEIGHT * MAP_WIDTH) // 10,
+    "Rock": (MAP_HEIGHT * MAP_WIDTH) // 10,
+    "Grass": (MAP_HEIGHT * MAP_WIDTH) * 2 // 10,
+    "Predator": (MAP_HEIGHT * MAP_WIDTH) * 3 // 10,
+    "Herbivore": (MAP_HEIGHT * MAP_WIDTH) * 3 // 10,
 }

@@ -7,7 +7,7 @@ from simulation.config.config import PREDATOR_ICON, HERBIVORE_ICON
 
 
 class Creature(Entity):
-    
+
     target_type: type[Resource]
 
     def __init__(self, hp: int, speed: int):
@@ -17,7 +17,7 @@ class Creature(Entity):
     @property
     def hp(self) -> int:
         return self._hp
-    
+
     @hp.setter
     def hp(self, value: int):
         self._hp = value
@@ -43,8 +43,9 @@ class Creature(Entity):
                 field[prev_cell] = None
             prev_cell = cell
 
+
 class Herbivore(Creature, Resource):
-    
+
     icon: str = HERBIVORE_ICON
     target_type: type[Resource] = Grass
 
@@ -58,7 +59,7 @@ class Herbivore(Creature, Resource):
 
 
 class Predator(Creature):
-    
+
     icon: str = PREDATOR_ICON
     target_type: type[Resource] = Herbivore
 
