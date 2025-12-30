@@ -7,6 +7,7 @@ from simulation.map.map import Map
 from simulation.entities.creature import Creature
 from simulation.creators.entity_creator import EntityCreator
 from simulation.algorithms.path_builder import BFS, RandomPathBuilder
+from simulation.config.config import MAX_ENTITY_COUNT
 
 
 class Action(ABC):
@@ -21,10 +22,14 @@ class SpawnEntity(Action):
         self._entity_creator = EntityCreator()
 
     def run(self, field: Map):
-        free_cell: Coordinate = choose_cell(field.get_free_cells())
-        field[free_cell] = self._entity_creator.create_entity("")
-
-
+        for classname, max_count in MAX_ENTITY_COUNT.items():
+            count_diff = max_count - field.get_entity_count(classname)
+            for _ in range(count_diff):
+                free_cells: list[Coordinate] = field.get_free_cells()
+                if len(free_cells) > 0:
+                    free_cell: Coordinate = choose_cell(free_cells)
+                    entity = self._entity_creator.create_entity(classname)
+                    field[free_cell] = entity
 
 class MoveCreature(Action):
 
