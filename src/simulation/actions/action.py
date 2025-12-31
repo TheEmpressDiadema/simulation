@@ -40,9 +40,9 @@ class MoveCreature(Action):
         self._random_builder: RandomPathBuilder = RandomPathBuilder()
 
     def run(self, field: Map):
-        entities: list[Entity] = field.get_entity_cells()
+        entity_cells: list[Coordinate] = field.get_entity_cells()
         existing_types: list[type[Entity]] = field.get_existing_types()
-        for cell in entities:
+        for cell in entity_cells:
             if isinstance(field[cell], Creature):
                 self._move_creature(cell, existing_types, field)
 
