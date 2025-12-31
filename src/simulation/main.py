@@ -1,5 +1,4 @@
 import time
-
 from simulation.entities.creature import Herbivore
 from simulation.map.map import Map
 
@@ -16,13 +15,9 @@ def main() -> None:
         spawn_action.run(field)
         renderer.print_field(field)
         print("spawned")
+        time.sleep(2)
         move_action.run(field)
         renderer.print_field(field)
         print("moved all")
-        entities = field.get_entity_cells()
-        for entity in entities:
-            if isinstance(field[entity], Herbivore):
-                print(field[entity].hp)
-        time.sleep(3)
-
+        time.sleep(2)
 main()
