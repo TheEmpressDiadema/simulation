@@ -52,11 +52,11 @@ class Map:
         return [type(entity) for entity in self._map.values() if entity is not None]
 
     def get_entity_count(self, entity_type: str) -> int:
-        return [
+        return len([
             entity
             for entity in self._map.values()
             if type(entity).__name__ == entity_type
-        ].count(entity_type)
+        ])
 
     def delete_entity(self, cell: Coordinate):
         del self._map[cell]
