@@ -5,7 +5,7 @@ FREE_CELL_ICON = "🟩"
 
 TREE_ICON = "🌳"
 
-ROCK_ICON = "⛰️"
+ROCK_ICON = "⛰️\u200A"
 
 GRASS_ICON = "🌿"
 
@@ -21,7 +21,7 @@ PREDATOR_DAMAGE = 5
 MAX_ENTITY_COUNT = {
     "Tree": (MAP_HEIGHT * MAP_WIDTH) // 10,
     "Rock": (MAP_HEIGHT * MAP_WIDTH) // 10,
-    "Grass": (MAP_HEIGHT * MAP_WIDTH) * 2 // 10,
-    "Predator": (MAP_HEIGHT * MAP_WIDTH) * 3 // 10,
-    "Herbivore": (MAP_HEIGHT * MAP_WIDTH) * 3 // 10,
+    "Grass": max((MAP_HEIGHT * MAP_WIDTH) // 10, 1),
+    "Predator": max((MAP_HEIGHT * MAP_WIDTH) // 15, 1),
+    "Herbivore": max((MAP_HEIGHT * MAP_WIDTH) // 10, 1),
 }
