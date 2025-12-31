@@ -20,4 +20,3 @@ def main() -> None:
         renderer.print_field(field)
         print("moved all")
         time.sleep(2)
-main()
