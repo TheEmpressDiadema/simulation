@@ -1,22 +1,37 @@
+import sys
 import time
-from simulation.entities.creature import Herbivore
-from simulation.map.map import Map
+import threading     
 
-from simulation.actions.action import SpawnEntity, MoveCreature
-from simulation.view.renderer import Renderer
-from simulation.config.config import MAP_HEIGHT, MAP_WIDTH
+def run_game(event: threading.Event):
+    while True:
+        event.wait()
+        print("Игра играется...")
+        time.sleep(1)
+
+def process_input(event: threading.Event):
+    while True:
+        cmd = input().strip().lower()
+        if cmd == "p":
+            event.clear()
+            print("Игра на паузе")
+        if cmd == "c":
+            event.set()
+            print("Игра продолжается")
+        if cmd == "e":
+            sys.exit(0)
+
+
 
 def main() -> None:
-    field = Map(MAP_HEIGHT, MAP_WIDTH)
-    spawn_action = SpawnEntity()
-    move_action = MoveCreature()
-    renderer = Renderer()
-    while True:
-        spawn_action.run(field)
-        renderer.print_field(field)
-        print("spawned")
-        time.sleep(2)
-        move_action.run(field)
-        renderer.print_field(field)
-        print("moved all")
-        time.sleep(2)
+
+    event = threading.Event()
+    event.set()
+
+    thread1 = threading.Thread(target=run_game, args=(event,))
+    thread2 = threading.Thread(target=process_input, args=(event,), daemon=True)
+
+    thread1.start()
+    thread2.start()
+
+    thread1.join()
+    thread2.join()
